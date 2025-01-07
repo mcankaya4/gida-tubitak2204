@@ -23,15 +23,16 @@ class PriceController extends Controller
         $price->save();
     }
 
-    public function qrcreate($id)
+    public function write($id)
     {
-        $data = url("api/show-info/{$id}");
+        $record = Price::findOrFail($id);
+        $data = url("api/discount/{$record->id}");
         $qrCode = QrCode::format('svg')->size(300)->generate($data);
 
-        return view('qrlar', ['qrCode' => $qrCode]);
+        return view('qrlar', ['qrCode' => $qrCode, 'urun_adi' => $record->urun_adi]);
     }
 
-    public function showInfo($id)
+    public function discount($id)
     {
         $record = Price::findOrFail($id);
         $tarih = $record->stt;
@@ -41,6 +42,7 @@ class PriceController extends Controller
         $fark == -0 ? $fark = 0 : $fark = $fark;
         $sonuclarim = json_decode($record->sonuclar);
         $indirim_orani = $sonuclarim->{$fark};
-        return "indirim oranı :" . $indirim_orani;
+
+        return view('discount', ['discount_number' => $indirim_orani, 'urun_adi' => $record->urun_adi]);
     }
 }

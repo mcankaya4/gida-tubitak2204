@@ -9,7 +9,7 @@
 
 <body>
     <div>
-        <h3>QR Kod:</h3>
+        <h3>{{ $urun_adi }}</h3>
         {!! $qrCode !!}
     </div>
 </body>

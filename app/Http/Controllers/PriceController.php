@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-use function PHPSTORM_META\type;
-
 class PriceController extends Controller
 {
     public function store(Request $request)
